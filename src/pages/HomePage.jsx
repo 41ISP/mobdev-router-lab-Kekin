@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import MovieCard from '../components/MovieCard.jsx';
 import { movies } from '../data/movies.js';
 

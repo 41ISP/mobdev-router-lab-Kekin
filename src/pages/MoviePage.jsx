@@ -1,49 +1,36 @@
-import { useParams, useNavigate } from 'react-router-dom'
-import { getMovieById } from '../data/movies.js';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { movies, labelForGenre } from '../data/movies.js';
 
 export default function MoviePage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const movie = getMovieById(id);
+  const movie = movies.find((m) => m.id === id);
 
   if (!movie) {
-    return <div className="inline-error">Фильм не найден.</div>;
+    return (
+      <section className="page-shell">
+        <div className="empty-note">Такого фильма нет в каталоге.</div>
+        <Link to="/movies" className="btn ghost">← К каталогу</Link>
+      </section>
+    );
   }
 
   return (
     <section className="page-shell">
+      <button type="button" className="btn ghost" onClick={() => navigate(-1)}>
+        ← Назад
+      </button>
+
       <div className="movie-detail">
         <div className="detail-poster" style={{ background: movie.color }}>
-          <span>{movie.title[0]}</span>
-          <small>{movie.year}</small>
+          {movie.title[0]}
         </div>
-
-        <div className="detail-content">
-          <span className="eyebrow">{movie.genreLabel.toUpperCase()}</span>
+        <div className="detail-body">
           <h1>{movie.title}</h1>
-          <p className="original-title">{movie.originalTitle}</p>
-
-          <div className="movie-meta">
-            <span>★ {movie.rating}</span>
-            <span>{movie.year}</span>
-            <span>{movie.duration}</span>
-          </div>
-
-          <p className="description">{movie.description}</p>
-
-          <div className="director">
-            <span>Режиссёр</span>
-            <strong>{movie.director}</strong>
-          </div>
-
-          <button
-            className="secondary-btn"
-            type="button"
-            onClick={() => navigate(-1)}
-          >
-            ← Назад
-          </button>
+          <p className="detail-cat">{labelForGenre(movie.genre)} · {movie.year}</p>
+          <div className="rating"><span>★</span> {movie.rating}</div>
+          <p className="detail-desc">{movie.description}</p>
         </div>
       </div>
     </section>

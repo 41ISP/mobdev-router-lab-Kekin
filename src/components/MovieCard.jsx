@@ -1,7 +1,6 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function MovieCard({ movie }) {
-
   return (
     <Link to={`/movies/${movie.id}`} className="movie-card">
       <div className="poster" style={{ background: movie.color }}>

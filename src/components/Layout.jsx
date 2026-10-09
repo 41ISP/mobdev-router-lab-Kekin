@@ -5,7 +5,7 @@ export default function Layout() {
   return (
     <>
       <Header />
-      <main className="content">
+      <main className="page-area">
         <Outlet />
       </main>
     </>
