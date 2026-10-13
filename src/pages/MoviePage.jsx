@@ -1,5 +1,5 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { movies, labelForGenre } from '../data/movies.js';
+import { movies } from '../data/movies.js';
 
 export default function MoviePage() {
   const { id } = useParams();
@@ -17,20 +17,34 @@ export default function MoviePage() {
   }
 
   return (
-    <section className="page-shell">
-      <button type="button" className="btn ghost" onClick={() => navigate(-1)}>
-        ← Назад
-      </button>
-
+        <section className="page-shell">
       <div className="movie-detail">
         <div className="detail-poster" style={{ background: movie.color }}>
-          {movie.title[0]}
+          <span>{movie.title[0]}</span>
+          <small>{movie.year}</small>
         </div>
-        <div className="detail-body">
+
+        <div className="detail-content">
+          <span className="eyebrow">{movie.genreLabel.toUpperCase()}</span>
           <h1>{movie.title}</h1>
-          <p className="detail-cat">{labelForGenre(movie.genre)} · {movie.year}</p>
-          <div className="rating"><span>★</span> {movie.rating}</div>
-          <p className="detail-desc">{movie.description}</p>
+          <p className="original-title">{movie.originalTitle}</p>
+
+          <div className="movie-meta">
+            <span>★ {movie.rating}</span>
+            <span>{movie.year}</span>
+            <span>{movie.duration}</span>
+          </div>
+
+          <p className="description">{movie.description}</p>
+
+          <div className="director">
+            <span>Режиссёр</span>
+            <strong>{movie.director}</strong>
+          </div>
+
+          <Link to="/" className="secondary-btn" type="button" >
+            ← Назад
+          </Link>
         </div>
       </div>
     </section>
