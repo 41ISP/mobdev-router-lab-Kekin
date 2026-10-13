@@ -1,15 +1,23 @@
-import { getMovieById } from '../data/movies.js';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { movies } from '../data/movies.js';
 
 export default function MoviePage() {
-  const id = 'inception';
-  const movie = getMovieById(id);
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const movie = movies.find((m) => m.id === id);
 
   if (!movie) {
-    return <div className="inline-error">Фильм не найден.</div>;
+    return (
+      <section className="page-shell">
+        <div className="empty-note">Такого фильма нет в каталоге.</div>
+        <Link to="/movies" className="btn ghost">← К каталогу</Link>
+      </section>
+    );
   }
 
   return (
-    <section className="page-shell">
+        <section className="page-shell">
       <div className="movie-detail">
         <div className="detail-poster" style={{ background: movie.color }}>
           <span>{movie.title[0]}</span>
@@ -34,9 +42,9 @@ export default function MoviePage() {
             <strong>{movie.director}</strong>
           </div>
 
-          <button className="secondary-btn" type="button">
+          <Link to="/" className="secondary-btn" type="button" >
             ← Назад
-          </button>
+          </Link>
         </div>
       </div>
     </section>
